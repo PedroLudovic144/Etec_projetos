@@ -1,0 +1,81 @@
+package br.com.etechoracio.pw2_etec_projetos.entity;
+
+import jakarta.persistence.*;
+import java.util.Set;
+@Getter
+@Setter
+@Entity
+@Table(name = "TBL_PROJETO")
+public class Projeto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "nome")
+    private String nome;
+
+    @ManyToMany
+    @JoinTable(
+        name = "TBL_Projeto_Funcionario",
+        joinColumns = @JoinColumn(name = "projeto_id"),
+        inverseJoinColumns = @JoinColumn(name = "funcionario_id")
+    )
+
+}
+
+
+
+
+
+
+package br.com.etechoracio.pw2_etec_projetos.entity;
+
+import jakarta.persistence.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "TBL_FUNCIONARIO")
+public class Funcionario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "nome")
+    private String nome;
+
+    @ManyToMany
+    @JoinTable(
+        name = "TBL_Projeto_Funcionario",
+        joinColumns = @JoinColumn(name = "funcionario_id"),
+        inverseJoinColumns = @JoinColumn(name = "projeto_id")
+    )
+
+}
+
+
+
+
+
+
+package br.com.etechoracio.pw2_etec_projetos.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "TBL_Projeto_Funcionario")
+public class ProjetoFuncionario {
+
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "projeto_id")
+    private Projeto projeto;
+
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "funcionario_id")
+    private Funcionario funcionario;
+
+
+}
